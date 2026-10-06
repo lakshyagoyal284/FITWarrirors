@@ -651,15 +651,60 @@ table.compare td { color: var(--clr-muted); }
 
 /* ---------- WhatsApp float ---------- */
 .wa-float {
-  position: fixed; right: 22px; bottom: 22px; z-index: 90;
+  position: fixed; right: 22px; bottom: 146px; z-index: 92;
   width: 56px; height: 56px; border-radius: 50%;
   background: #25d366;
-  display: grid; place-items: center;
-  font-size: 26px;
+  display: flex; align-items: center; justify-content: center;
   box-shadow: 0 10px 26px rgba(37, 211, 102, .4);
   transition: transform .2s;
+  text-decoration: none;
+}
+.wa-float img {
+  width: 30px; height: 30px;
+  object-fit: contain;
 }
 .wa-float:hover { transform: scale(1.08); }
+
+/* ---------- Call float ---------- */
+.call-float {
+  position: fixed; right: 22px; bottom: 22px; z-index: 90;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #222;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .3);
+  transition: transform .2s;
+  text-decoration: none;
+}
+.call-float img {
+  width: 26px; height: 26px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.call-float:hover { transform: scale(1.08); }
+
+/* ---------- Instagram float ---------- */
+.insta-float {
+  position: fixed; right: 22px; bottom: 84px; z-index: 91;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #e1306c;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 26px rgba(225, 48, 108, .4);
+  transition: transform .2s;
+  text-decoration: none;
+}
+.insta-float img {
+  width: 30px; height: 30px;
+  object-fit: contain;
+}
+.insta-float:hover { transform: scale(1.08); }
+
+/* Only show insta-float on home page */
+html:not([data-page="index"]) .insta-float {
+  display: none !important;
+}
+html:not([data-page="index"]) .wa-float {
+  bottom: 84px;
+}
 
 /* ---------- Reveal animation ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
