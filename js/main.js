@@ -161,19 +161,34 @@
     });
   }
 
-  /* ----- Demo form handler (no backend) ----- */
+  /* ----- Form handler: send enquiry via WhatsApp ----- */
   document.querySelectorAll("form[data-demo]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      var name = form.querySelector("#fn") ? form.querySelector("#fn").value.trim() : "";
+      var phone = form.querySelector("#ph") ? form.querySelector("#ph").value.trim() : "";
+      var interest = form.querySelector("#intr") ? form.querySelector("#intr").value : "";
+      var refInput = form.querySelector('input[name="referral_code"]');
+      var referral = refInput ? refInput.value.trim() : "";
+      var goal = form.querySelector("#msg") ? form.querySelector("#msg").value.trim() : "";
       var status = form.querySelector(".form-status");
+
+      var msg = "Hi Dipti!\n\n";
+      if (name) msg += "Name: " + name + "\n";
+      if (phone) msg += "Phone: " + phone + "\n";
+      if (interest) msg += "Interested In: " + interest + "\n";
+      if (referral) msg += "Referral Code: " + referral + "\n";
+      if (goal) msg += "My Goal: " + goal + "\n";
+      msg += "\nI'd like to know more about your coaching plans.";
+
+      var encoded = encodeURIComponent(msg);
+      var waUrl = "https://wa.me/917058026821?text=" + encoded;
+
       if (status) {
-        var refInput = form.querySelector('input[name="referral_code"]');
-        var hasCode = refInput && refInput.value.trim() !== "";
-        status.textContent = hasCode
-          ? "✓ Thank you! Your enquiry has been recorded WITH your referral code 🎉 We'll verify it and personally confirm your exact discount shortly. (Demo form — connect a backend or service to receive submissions.)"
-          : "✓ Thank you! Your inquiry has been recorded. We will contact you shortly. (Demo form — connect a backend or service to receive submissions.)";
+        status.textContent = "✓ Opening WhatsApp — your enquiry is ready to send!";
         status.classList.add("show");
       }
+      window.open(waUrl, "_blank");
       form.reset();
     });
   });
